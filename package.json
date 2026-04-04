@@ -1,0 +1,67 @@
+{
+  "name": "klinex",
+  "version": "0.1.0",
+  "description": "OpenTUI inspector for local dev servers",
+  "keywords": [
+    "bun",
+    "opentui",
+    "tui",
+    "localhost",
+    "dev-server",
+    "process-manager"
+  ],
+  "homepage": "https://github.com/spencerjireh/klinex#readme",
+  "bugs": {
+    "url": "https://github.com/spencerjireh/klinex/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencerjireh/klinex.git"
+  },
+  "license": "MIT",
+  "author": "spencerjireh",
+  "module": "index.ts",
+  "type": "module",
+  "private": false,
+  "packageManager": "bun@1.3.3",
+  "engines": {
+    "bun": ">=1.3.3"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "bin": {
+    "klinex": "./bin/klinex"
+  },
+  "files": [
+    "bin",
+    "src",
+    "index.ts",
+    "README.md",
+    "LICENSE",
+    "tsconfig.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "bun run index.ts",
+    "start": "bun run index.ts",
+    "test": "bun test",
+    "check": "bun x tsc --noEmit",
+    "build": "bun build ./index.ts --target bun --outdir dist",
+    "ci": "bun run check && bun run test && bun run build",
+    "pack": "bun pm pack",
+    "package:dry-run": "bun pm pack"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.1.96"
+  }
+}
