@@ -20,20 +20,20 @@ It scans local TCP listeners, ranks likely dev servers first, probes them over H
 - [Bun](https://bun.sh) `>= 1.3.3`
 - macOS or Linux
 
-`klinex` is published through npm, but v1 is Bun-runtime-only because OpenTUI is Bun-first today.
+`klinex` is published through npm as `@klinex/klinex`, but v1 is Bun-runtime-only because OpenTUI is Bun-first today.
 
 ## Install
 
 One-off usage:
 
 ```bash
-bunx klinex
+bunx @klinex/klinex
 ```
 
 Global install:
 
 ```bash
-bun add -g klinex
+bun add -g @klinex/klinex
 klinex
 ```
 
@@ -80,11 +80,11 @@ bun run package:dry-run
 
 `bun run package:dry-run` validates the package tarball without writing it to disk.
 
-If you later want to validate the actual registry publish flow, run `bun publish --dry-run` after authenticating with npm.
+If you later want to validate the actual registry publish flow, run `npm publish --dry-run --access public` after authenticating with npm.
 
 ## Release
 
-`klinex` is published to npm as a public package.
+`klinex` is published to npm as the public package `@klinex/klinex`.
 
 ### Manual Publish
 
@@ -98,11 +98,11 @@ If you later want to validate the actual registry publish flow, run `bun publish
    bun install
    bun run ci
    bun run package:dry-run
-   bun publish --dry-run
+   npm publish --dry-run --access public
    ```
 4. Publish:
    ```bash
-   bun publish
+   npm publish --access public
    ```
 
 ### CI Publish
@@ -120,11 +120,11 @@ The recommended release path is GitHub Actions publishing from a semver tag.
 
 ### Requirements
 
-- package name: `klinex`
+- package name: `@klinex/klinex`
 - install target: npm registry
 - runtime requirement: Bun
 - repo target: `https://github.com/spencerjireh/klinex`
-- npm access to the `klinex` package
+- npm access to the `@klinex/klinex` package
 - `NPM_TOKEN` configured in GitHub Actions for CI publishing
 
 ## License
