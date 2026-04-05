@@ -43,4 +43,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
-        run: bun publish
+        run: npm publish --access public
