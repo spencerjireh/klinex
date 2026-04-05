@@ -53,7 +53,7 @@
     "build": "bun build ./index.ts --target bun --outdir dist",
     "ci": "bun run check && bun run test && bun run build",
     "pack": "bun pm pack",
-    "package:dry-run": "bun pm pack"
+    "package:dry-run": "bun pm pack --dry-run"
   },
   "devDependencies": {
     "@types/bun": "latest"

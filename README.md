@@ -78,14 +78,54 @@ bun run ci
 bun run package:dry-run
 ```
 
+`bun run package:dry-run` validates the package tarball without writing it to disk.
+
 If you later want to validate the actual registry publish flow, run `bun publish --dry-run` after authenticating with npm.
 
-## Publishing Notes
+## Release
+
+`klinex` is published to npm as a public package.
+
+### Manual Publish
+
+1. Ensure you are logged into npm:
+   ```bash
+   npm whoami
+   ```
+2. Bump the version in `package.json`.
+3. Run release checks:
+   ```bash
+   bun install
+   bun run ci
+   bun run package:dry-run
+   bun publish --dry-run
+   ```
+4. Publish:
+   ```bash
+   bun publish
+   ```
+
+### CI Publish
+
+The recommended release path is GitHub Actions publishing from a semver tag.
+
+1. Bump `package.json` to the intended release version.
+2. Merge to `main`.
+3. Create and push a matching tag:
+   ```bash
+   git tag v0.1.1
+   git push origin v0.1.1
+   ```
+4. The publish workflow validates the version, runs CI, and publishes to npm.
+
+### Requirements
 
 - package name: `klinex`
 - install target: npm registry
 - runtime requirement: Bun
 - repo target: `https://github.com/spencerjireh/klinex`
+- npm access to the `klinex` package
+- `NPM_TOKEN` configured in GitHub Actions for CI publishing
 
 ## License
 
