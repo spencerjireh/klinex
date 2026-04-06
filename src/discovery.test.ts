@@ -60,6 +60,19 @@ test("scoreDevServer ranks common dev servers above system services", () => {
   expect(scoreDevServer("/usr/sbin/sshd -D", "sshd", 22).score).toBeLessThan(0);
 });
 
+test("scoreDevServer recognizes developer infrastructure on known ports", () => {
+  const postgres = scoreDevServer("postgres -D /tmp/dev-db", "postgres", 5432);
+  expect(postgres.serviceType).toBe("database");
+  expect(postgres.isRelevantService).toBe(true);
+  expect(postgres.probeKind).toBe("tcp");
+});
+
+test("scoreDevServer keeps system services out of curated view", () => {
+  const ssh = scoreDevServer("/usr/sbin/sshd -D", "sshd", 22);
+  expect(ssh.serviceType).toBe("system");
+  expect(ssh.isRelevantService).toBe(false);
+});
+
 test("normalizeHost rewrites wildcard binds to localhost", () => {
   const normalized = normalizeHost("0.0.0.0", new Set(["127.0.0.1", "192.168.1.10"]));
   expect(normalized).toEqual({

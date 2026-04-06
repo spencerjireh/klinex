@@ -16,8 +16,14 @@ const baseEntry: ServerEntry = {
   displayHost: "127.0.0.1",
   port: 3000,
   browserUrl: "http://localhost:3000",
+  endpoint: "http://localhost:3000",
   protocolHint: null,
+  probeKind: "http",
   probe: null,
+  serviceType: "web",
+  serviceLabel: "Web",
+  hasHttpUi: true,
+  isRelevantService: true,
   framework: "Next.js",
   devScore: 80,
   isLikelyDev: true,
@@ -31,9 +37,26 @@ test("fuzzyScore matches subsequences", () => {
   expect(fuzzyScore("zzz", "next dev")).toBeNull();
 });
 
-test("shouldShowByDefault hides low-signal listeners without a successful probe", () => {
+test("shouldShowByDefault hides unknown low-signal listeners without a successful probe", () => {
   expect(shouldShowByDefault(baseEntry)).toBe(true);
-  expect(shouldShowByDefault({ ...baseEntry, isLikelyDev: false, devScore: 0 })).toBe(false);
+  expect(shouldShowByDefault({ ...baseEntry, serviceType: "unknown", serviceLabel: "Listener", isRelevantService: false, isLikelyDev: false, devScore: 0, browserUrl: null, endpoint: "tcp://localhost:3000", hasHttpUi: false, probeKind: "none" })).toBe(false);
+});
+
+test("shouldShowByDefault includes recognized developer infrastructure", () => {
+  expect(shouldShowByDefault({
+    ...baseEntry,
+    browserUrl: null,
+    endpoint: "db://localhost:5432",
+    probeKind: "tcp",
+    serviceType: "database",
+    serviceLabel: "Postgres",
+    hasHttpUi: false,
+    isRelevantService: true,
+    framework: "Postgres",
+    port: 5432,
+    devScore: 34,
+    isLikelyDev: false,
+  })).toBe(true);
 });
 
 test("filterAndSortEntries keeps the selected item when still visible", () => {
