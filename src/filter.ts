@@ -45,7 +45,7 @@ export function fuzzyScore(query: string, target: string): number | null {
 }
 
 export function shouldShowByDefault(entry: ServerEntry): boolean {
-  return entry.isLikelyDev || entry.probe?.state === "success";
+  return (entry.isRelevantService && entry.serviceType !== "system") || entry.probe?.state === "success";
 }
 
 export function filterAndSortEntries(
@@ -95,6 +95,9 @@ function scoreEntryAgainstQuery(entry: ServerEntry, query: string): number | nul
     `${entry.displayHost}:${entry.port}`,
     entry.processName,
     entry.command,
+    entry.serviceType,
+    entry.serviceLabel,
+    entry.endpoint,
     entry.framework ?? "",
     String(entry.pid),
   ];
@@ -138,10 +141,16 @@ function compareEntries(
 function compareRelevance(left: ServerEntry, right: ServerEntry): number {
   const leftProbeScore = left.probe?.state === "success" ? 1 : 0;
   const rightProbeScore = right.probe?.state === "success" ? 1 : 0;
+  const leftRelevantScore = left.isRelevantService ? 1 : 0;
+  const rightRelevantScore = right.isRelevantService ? 1 : 0;
+  const leftHttpScore = left.hasHttpUi ? 1 : 0;
+  const rightHttpScore = right.hasHttpUi ? 1 : 0;
 
   return (
+    rightRelevantScore - leftRelevantScore ||
     right.devScore - left.devScore ||
     rightProbeScore - leftProbeScore ||
+    rightHttpScore - leftHttpScore ||
     left.port - right.port ||
     comparePid(left, right)
   );

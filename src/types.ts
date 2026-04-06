@@ -1,7 +1,20 @@
-export type ProbeProtocol = "http" | "https";
+export type ProbeProtocol = "http" | "https" | "tcp";
 export type ProbeState = "idle" | "success" | "failed";
 export type SortMode = "relevance" | "port" | "process";
 export type StopAction = "term-pid" | "kill-pid" | "term-tree" | "kill-tree";
+export type ProbeKind = "http" | "tcp" | "none";
+export type ServiceType =
+  | "web"
+  | "database"
+  | "cache"
+  | "storage"
+  | "emulator"
+  | "queue"
+  | "mail"
+  | "search"
+  | "observability"
+  | "system"
+  | "unknown";
 
 export interface CommandResult {
   command: string[];
@@ -34,11 +47,17 @@ export interface ProbeResult {
   status?: number;
   title?: string;
   error?: string;
+  reachable?: boolean;
 }
 
-export interface DevHeuristic {
+export interface ServiceHeuristic {
   score: number;
   framework: string | null;
+  serviceType: ServiceType;
+  serviceLabel: string;
+  probeKind: ProbeKind;
+  hasHttpUi: boolean;
+  isRelevantService: boolean;
   reasons: string[];
 }
 
@@ -55,9 +74,15 @@ export interface ServerEntry {
   browserHost: string;
   displayHost: string;
   port: number;
-  browserUrl: string;
+  browserUrl: string | null;
+  endpoint: string;
   protocolHint: ProbeProtocol | null;
+  probeKind: ProbeKind;
   probe: ProbeResult | null;
+  serviceType: ServiceType;
+  serviceLabel: string;
+  hasHttpUi: boolean;
+  isRelevantService: boolean;
   framework: string | null;
   devScore: number;
   isLikelyDev: boolean;

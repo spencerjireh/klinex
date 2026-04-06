@@ -1,16 +1,17 @@
 # klinex
 
-`klinex` is a Bun-powered OpenTUI dashboard for local HTTP/HTTPS dev servers.
+`klinex` is a Bun-powered OpenTUI dashboard for local developer services.
 
-It scans local TCP listeners, ranks likely dev servers first, probes them over HTTP/HTTPS, lets you open them in your browser, and gives you safe stop controls directly from the terminal.
+It scans local TCP listeners, ranks developer-relevant services first, probes browserable services over HTTP/HTTPS and infra services over TCP, lets you open local web UIs in your browser, and gives you safe stop controls directly from the terminal.
 
 ## Features
 
 - macOS and Linux support
-- likely-dev-first view with a toggle for all local TCP listeners
-- fuzzy search across host, port, process, command, and framework
-- lightweight HTTP/HTTPS probing with title/status hints
-- browser open on `Enter`
+- curated developer-services view with a toggle for all local TCP listeners
+- detection for local web apps, APIs, databases, caches, emulators, queues, mail tools, search, and observability services
+- fuzzy search across host, port, process, command, service type, and framework
+- lightweight HTTP/HTTPS and TCP probing with title/status hints
+- browser open for services with an HTTP UI
 - stop actions for PID-only and process-tree modes
 - permission-aware behavior with clear sudo guidance
 - cyber-styled OpenTUI interface built on `@opentui/core`
@@ -78,11 +79,11 @@ bun run dev
 
 ## Keybindings
 
-- `Enter`: open selected server in the default browser
+- `Enter`: open the selected service in the default browser when it has an HTTP UI
 - `/`: focus fuzzy filter
 - `Tab`: switch focus between list and filter
 - `r`: refresh now
-- `a`: toggle likely-dev-only vs all listeners
+- `a`: toggle curated developer services vs all listeners
 - `s`: cycle sort mode
 - `x`: open stop dialog
 - `q`: quit

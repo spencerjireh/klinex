@@ -1,4 +1,5 @@
-import { formatUrl } from "./discovery.ts";
+import { Socket } from "node:net";
+import { formatUrl, isCommonDevPort } from "./discovery.ts";
 import { extractHtmlTitle } from "./parse.ts";
 import type { ProbeProtocol, ProbeResult, ServerEntry } from "./types.ts";
 
@@ -24,17 +25,33 @@ export async function probeEntries(entries: ServerEntry[], selectedId: string | 
 }
 
 export function applyProbe(entry: ServerEntry, probe: ProbeResult): ServerEntry {
-  const protocol = probe.state === "success" ? probe.protocol : entry.protocolHint ?? "http";
+  const protocol = probe.state === "success" ? probe.protocol : entry.protocolHint;
+  const browserUrl = entry.hasHttpUi && protocol && protocol !== "tcp"
+    ? formatUrl(protocol, entry.browserHost, entry.port)
+    : entry.browserUrl;
 
   return {
     ...entry,
     probe,
-    protocolHint: probe.state === "success" ? probe.protocol ?? entry.protocolHint : entry.protocolHint,
-    browserUrl: formatUrl(protocol ?? "http", entry.browserHost, entry.port),
+    protocolHint: probe.state === "success" && probe.protocol !== "tcp" ? probe.protocol ?? entry.protocolHint : entry.protocolHint,
+    browserUrl,
+    endpoint: browserUrl ?? entry.endpoint,
   };
 }
 
 async function probeEntry(entry: ServerEntry): Promise<ProbeResult> {
+  if (entry.probeKind === "tcp") {
+    return probeTcpEntry(entry);
+  }
+
+  if (entry.probeKind === "none") {
+    return {
+      state: "failed",
+      checkedAt: Date.now(),
+      error: "No probe available",
+    };
+  }
+
   const protocols = chooseProtocols(entry.protocolHint);
 
   for (const protocol of protocols) {
@@ -86,10 +103,10 @@ function chooseProtocols(protocolHint: ProbeProtocol | null): ProbeProtocol[] {
   return ["http", "https"];
 }
 
-function pickProbeCandidates(entries: ServerEntry[], selectedId: string | null): ServerEntry[] {
+export function pickProbeCandidates(entries: ServerEntry[], selectedId: string | null): ServerEntry[] {
   const selected = selectedId ? entries.find((entry) => entry.id === selectedId) : undefined;
   const topEntries = entries
-    .filter((entry) => entry.isLikelyDev)
+    .filter((entry) => entry.isRelevantService || isCommonDevPort(entry.port))
     .sort((left, right) => right.devScore - left.devScore || left.port - right.port)
     .slice(0, MAX_PROBE_TARGETS);
 
@@ -103,6 +120,54 @@ function pickProbeCandidates(entries: ServerEntry[], selectedId: string | null):
 
     seen.add(entry.id);
     return true;
+  });
+}
+
+async function probeTcpEntry(entry: ServerEntry): Promise<ProbeResult> {
+  return new Promise<ProbeResult>((resolve) => {
+    const socket = new Socket();
+    let settled = false;
+
+    const finish = (result: ProbeResult): void => {
+      if (settled) {
+        return;
+      }
+
+      settled = true;
+      socket.destroy();
+      resolve(result);
+    };
+
+    socket.setTimeout(PROBE_TIMEOUT_MS, () => {
+      finish({
+        state: "failed",
+        checkedAt: Date.now(),
+        protocol: "tcp",
+        reachable: false,
+        error: "TCP probe timed out",
+      });
+    });
+
+    socket.once("connect", () => {
+      finish({
+        state: "success",
+        checkedAt: Date.now(),
+        protocol: "tcp",
+        reachable: true,
+      });
+    });
+
+    socket.once("error", (error) => {
+      finish({
+        state: "failed",
+        checkedAt: Date.now(),
+        protocol: "tcp",
+        reachable: false,
+        error: error.message,
+      });
+    });
+
+    socket.connect(entry.port, entry.browserHost);
   });
 }
 

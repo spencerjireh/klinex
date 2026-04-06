@@ -78,7 +78,7 @@ export class KlinexApp {
     query: "",
     showAll: false,
     sortMode: "relevance",
-    status: "Scanning for local dev servers...",
+    status: "Scanning for local developer services...",
     warning: null,
     isRefreshing: false,
     refreshStartedAt: null,
@@ -221,7 +221,7 @@ export class KlinexApp {
       minWidth: 34,
     });
     this.detailText = new TextRenderable(renderer, {
-      content: "No server selected.",
+      content: "No service selected.",
       fg: COLORS.bright,
       width: "100%",
       height: "100%",
@@ -532,7 +532,7 @@ export class KlinexApp {
     }
     if (key.name === "a") {
       this.state.showAll = !this.state.showAll;
-      this.state.status = this.state.showAll ? "Showing all listeners." : "Showing dev servers only.";
+      this.state.status = this.state.showAll ? "Showing all listeners." : "Showing curated developer services.";
       this.render();
       return;
     }
@@ -587,6 +587,12 @@ export class KlinexApp {
       return;
     }
 
+    if (!entry.browserUrl) {
+      this.state.status = entry.hasHttpUi ? `No browser target available for ${entry.serviceLabel}.` : `${entry.serviceLabel} has no HTTP UI to open.`;
+      this.renderFooter();
+      return;
+    }
+
     const result = await openUrl(entry.browserUrl);
     this.state.status = result.message;
     this.renderFooter();
@@ -623,7 +629,7 @@ export class KlinexApp {
     // Single mode
     const entry = this.getSelectedEntry();
     if (!entry) {
-      this.state.status = "No server selected to stop.";
+      this.state.status = "No service selected to stop.";
       this.renderFooter();
       return;
     }
@@ -643,13 +649,13 @@ export class KlinexApp {
     this.modalTitleText.content = `Confirm stop for PID ${entry.pid}`;
     this.modalBodyText.content = siblingPorts.length > 0
       ? `${entry.processName} also owns ports ${siblingPorts.join(", ")}.`
-      : `${entry.processName} serving ${entry.browserUrl}`;
+      : `${entry.processName} serving ${entry.endpoint}`;
     this.modalSelect.options = [
       { name: "TERM PID", description: "Graceful stop for the selected PID only", value: "term-pid" },
       { name: "KILL PID", description: "Force stop for the selected PID only", value: "kill-pid" },
       { name: "TERM TREE", description: "Graceful stop for the PID and its child processes", value: "term-tree" },
       { name: "KILL TREE", description: "Force stop for the PID and its child processes", value: "kill-tree" },
-      { name: "Cancel", description: "Leave the server running", value: "cancel" },
+      { name: "Cancel", description: "Leave the service running", value: "cancel" },
     ];
     this.modalSelect.selectedIndex = 0;
     this.modalBox.visible = true;
@@ -756,18 +762,20 @@ export class KlinexApp {
   private renderDetails(): void {
     const entry = this.getSelectedEntry();
     if (!entry) {
-      this.detailText.content = "No server selected.";
+      this.detailText.content = "No service selected.";
       return;
     }
 
     const lines: string[] = [
-      `${entry.framework ?? "HTTP"} :${entry.port}`,
+      `${entry.serviceLabel} :${entry.port}`,
       "",
       "OVERVIEW",
-      `  Target     ${entry.browserUrl}`,
+      `  Category   ${entry.serviceType}`,
+      `  Endpoint   ${entry.endpoint}`,
+      `  Open       ${entry.browserUrl ?? "No HTTP UI"}`,
       `  Bind       ${entry.displayHost}:${entry.port}  [${entry.bindHosts.join(", ")}]`,
       `  Probe      ${formatProbe(entry)}`,
-      `  Score      ${entry.devScore} ${entry.isLikelyDev ? "dev" : "low"}`,
+      `  Score      ${entry.devScore} ${entry.isRelevantService ? "relevant" : "low"}`,
       "",
       "PROCESS",
       `  PID        ${entry.pid ?? "hidden"}${entry.ppid ? `  PPID ${entry.ppid}` : ""}`,
@@ -801,7 +809,7 @@ export class KlinexApp {
   }
 
   private buildSummary(visibleCount: number): string {
-    const mode = this.state.showAll ? "all" : "dev";
+    const mode = this.state.showAll ? "all" : "curated";
     const parts = [
       `${visibleCount}/${this.state.entries.length}`,
       mode,
@@ -860,10 +868,10 @@ function formatListName(entry: ServerEntry, terminalWidth: number, marked: boole
   const mark = marked ? "*" : " ";
   const probe = probeLabel(entry);
   const host = truncate(entry.displayHost, columns.hostWidth);
-  const framework = truncate(entry.framework ?? "HTTP?", columns.frameworkWidth);
+  const serviceLabel = truncate(entry.framework ?? entry.serviceLabel, columns.frameworkWidth);
   const processName = truncate(entry.processName, columns.processWidth);
   const pidLabel = entry.pid === null ? "hidden" : String(entry.pid);
-  return `${mark}${pad(probe, 5)} ${pad(host, columns.hostWidth)} ${pad(String(entry.port), columns.portWidth)} ${pad(framework, columns.frameworkWidth)} ${pad(processName, columns.processWidth)} ${pad(pidLabel, columns.pidWidth)}`;
+  return `${mark}${pad(probe, 5)} ${pad(host, columns.hostWidth)} ${pad(String(entry.port), columns.portWidth)} ${pad(serviceLabel, columns.frameworkWidth)} ${pad(processName, columns.processWidth)} ${pad(pidLabel, columns.pidWidth)}`;
 }
 
 function formatProbe(entry: ServerEntry): string {
@@ -873,6 +881,10 @@ function formatProbe(entry: ServerEntry): string {
 
   if (entry.probe.state === "failed") {
     return `Probe failed${entry.probe.error ? `: ${entry.probe.error}` : ""}`;
+  }
+
+  if (entry.probe.protocol === "tcp") {
+    return entry.probe.reachable ? "TCP reachable" : "TCP unavailable";
   }
 
   const status = entry.probe.status ? ` ${entry.probe.status}` : "";
@@ -889,12 +901,16 @@ function probeLabel(entry: ServerEntry): string {
     return "MISS";
   }
 
+  if (entry.probe.protocol === "tcp") {
+    return "TCP";
+  }
+
   return entry.probe.protocol === "https" ? "TLS" : "HTTP";
 }
 
 function formatListHeader(terminalWidth: number): string {
   const columns = getListColumns(terminalWidth);
-  return `    ${pad("NET", 5)} ${pad("HOST", columns.hostWidth)} ${pad("PORT", columns.portWidth)} ${pad("APP", columns.frameworkWidth)} ${pad("PROCESS", columns.processWidth)} ${pad("PID", columns.pidWidth)}`;
+  return `    ${pad("NET", 5)} ${pad("HOST", columns.hostWidth)} ${pad("PORT", columns.portWidth)} ${pad("TYPE", columns.frameworkWidth)} ${pad("PROCESS", columns.processWidth)} ${pad("PID", columns.pidWidth)}`;
 }
 
 function getListColumns(terminalWidth: number): {
