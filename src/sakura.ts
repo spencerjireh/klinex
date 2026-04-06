@@ -15,23 +15,23 @@ const TRANSPARENT = parseColor("#00000000");
 
 const PETAL_CHARS: string[] = [".", "*", ",", "'", "`", ";", "~"];
 const PETAL_COLORS: RGBA[] = [
-  parseColor("#f7768e"),
-  parseColor("#ff9e64"),
-  parseColor("#bb9af7"),
-  parseColor("#c0caf5"),
-  parseColor("#f7768e"),
-  parseColor("#e0af68"),
+  parseColor("#EC5B2B"),
+  parseColor("#EE7948"),
+  parseColor("#e5c07b"),
+  parseColor("#FFF7F1"),
+  parseColor("#EC5B2B"),
+  parseColor("#EE7948"),
 ];
 
-// -- Tree color palette (Tokyo Night tones) ----------------------------------
+// -- Tree color palette (lucent-orng tones) -----------------------------------
 
-const CANOPY_BRIGHT = parseColor("#f7768e"); // pink
-const CANOPY_MID    = parseColor("#bb9af7"); // lavender
-const CANOPY_DIM    = parseColor("#7aa2f7"); // blue
-const CANOPY_GLOW   = parseColor("#ff9e64"); // peach highlight
-const TRUNK_COLOR   = parseColor("#565f89"); // muted
-const TRUNK_LIGHT   = parseColor("#737aa2"); // lighter trunk
-const GROUND_COLOR  = parseColor("#3b4261"); // dim ground
+const CANOPY_BRIGHT = parseColor("#EC5B2B"); // hot orange
+const CANOPY_MID    = parseColor("#EE7948"); // warm orange
+const CANOPY_DIM    = parseColor("#e5c07b"); // amber
+const CANOPY_GLOW   = parseColor("#FFF7F1"); // warm white highlight
+const TRUNK_COLOR   = parseColor("#808080"); // muted
+const TRUNK_LIGHT   = parseColor("#999999"); // lighter trunk
+const GROUND_COLOR  = parseColor("#3c3c3c"); // dim ground
 
 // -- Gilo97 tree art ---------------------------------------------------------
 

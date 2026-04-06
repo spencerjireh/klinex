@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 jobs:
-  publish:
+  verify:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -36,6 +36,63 @@ jobs:
       - name: Run CI
         run: bun run ci
 
+  build-binaries:
+    needs: verify
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            target: bun-linux-x64
+            asset_name: klinex-linux-x64
+          - runner: macos-14
+            target: bun-darwin-arm64
+            asset_name: klinex-darwin-arm64
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.3
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build release asset
+        run: bun run build:bin --target "${{ matrix.target }}" --asset-name "${{ matrix.asset_name }}"
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset_name }}
+          path: |
+            dist/release/${{ matrix.asset_name }}.tar.gz
+            dist/release/${{ matrix.asset_name }}.tar.gz.sha256
+
+  publish-npm:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.3
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
       - name: Configure npm auth
         run: |
           printf '//registry.npmjs.org/:_authToken=%s\n' "$NPM_TOKEN" > ~/.npmrc
@@ -44,3 +101,89 @@ jobs:
 
       - name: Publish to npm
         run: npm publish --access public
+
+  create-release:
+    needs:
+      - build-binaries
+      - publish-npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/release-assets
+          pattern: klinex-*
+          merge-multiple: true
+
+      - name: Build checksum manifest
+        run: cat dist/release-assets/*.sha256 > dist/release-assets/SHA256SUMS.txt
+
+      - name: Create or update GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/release-assets/* --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/release-assets/* --title "$GITHUB_REF_NAME" --notes "Automated release for $GITHUB_REF_NAME" --verify-tag
+          fi
+
+  # TODO: enable once klinex/homebrew-tap repo and HOMEBREW_TAP_TOKEN are set up
+  # update-homebrew-tap:
+  #   needs: create-release
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Bun
+  #       uses: oven-sh/setup-bun@v2
+  #       with:
+  #         bun-version: 1.3.3
+  #
+  #     - name: Download binary artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         path: dist/release-assets
+  #         pattern: klinex-*
+  #         merge-multiple: true
+  #
+  #     - name: Clone tap repo
+  #       env:
+  #         HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+  #       run: git clone "https://x-access-token:${HOMEBREW_TAP_TOKEN}@github.com/klinex/homebrew-tap.git" "$RUNNER_TEMP/homebrew-tap"
+  #
+  #     - name: Generate formula
+  #       run: |
+  #         mkdir -p "$RUNNER_TEMP/homebrew-tap/Formula"
+  #         VERSION="${GITHUB_REF_NAME#v}"
+  #         DARWIN_ARM64_SHA=$(cut -d ' ' -f1 dist/release-assets/klinex-darwin-arm64.tar.gz.sha256)
+  #         LINUX_X64_SHA=$(cut -d ' ' -f1 dist/release-assets/klinex-linux-x64.tar.gz.sha256)
+  #         RELEASE_BASE_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}"
+  #
+  #         bun run generate:formula \
+  #           --output "$RUNNER_TEMP/homebrew-tap/Formula/klinex.rb" \
+  #           --version "$VERSION" \
+  #           --darwin-arm64-url "$RELEASE_BASE_URL/klinex-darwin-arm64.tar.gz" \
+  #           --darwin-arm64-sha256 "$DARWIN_ARM64_SHA" \
+  #           --linux-x64-url "$RELEASE_BASE_URL/klinex-linux-x64.tar.gz" \
+  #           --linux-x64-sha256 "$LINUX_X64_SHA"
+  #
+  #     - name: Commit and push formula update
+  #       run: |
+  #         cd "$RUNNER_TEMP/homebrew-tap"
+  #         git add Formula/klinex.rb
+  #
+  #         if git diff --cached --quiet; then
+  #           echo "No Homebrew formula changes to publish"
+  #           exit 0
+  #         fi
+  #
+  #         git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "chore: update klinex ${GITHUB_REF_NAME#v}"
+  #         git push origin HEAD

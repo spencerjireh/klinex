@@ -20,7 +20,9 @@ It scans local TCP listeners, ranks likely dev servers first, probes them over H
 - [Bun](https://bun.sh) `>= 1.3.3`
 - macOS or Linux
 
-`klinex` is published through npm as `@klinex/klinex`, but v1 is Bun-runtime-only because OpenTUI is Bun-first today.
+`klinex` is published through npm as `@klinex/klinex`, but the installed CLI command is still `klinex`.
+
+Zero-Bun-install releases are also published as standalone binaries and through Homebrew.
 
 ## Install
 
@@ -30,7 +32,37 @@ One-off usage:
 bunx @klinex/klinex
 ```
 
+With npm, if Bun is already installed:
+
+```bash
+npm i -g @klinex/klinex
+klinex
+```
+
 Global install:
+
+```bash
+bun add -g @klinex/klinex
+```
+
+Run it with:
+
+```bash
+klinex
+```
+
+In other words: scoped package name, unscoped CLI command.
+
+Zero-Bun-install options:
+
+```bash
+brew install klinex/tap/klinex
+klinex
+```
+
+Direct binaries are also attached to GitHub Releases for macOS arm64 and Linux x64.
+
+If you prefer a single line:
 
 ```bash
 bun add -g @klinex/klinex
@@ -82,9 +114,16 @@ bun run package:dry-run
 
 If you later want to validate the actual registry publish flow, run `npm publish --dry-run --access public` after authenticating with npm.
 
+Standalone release binaries are built on native GitHub runners and smoke-tested with `klinex --version` before release assets are published.
+
 ## Release
 
-`klinex` is published to npm as the public package `@klinex/klinex`.
+`klinex` is published to npm as the public package `@klinex/klinex`, and the executable it installs is `klinex`.
+
+Tagged releases also publish:
+
+- standalone binaries on GitHub Releases
+- a Homebrew formula to `klinex/homebrew-tap`
 
 ### Manual Publish
 
@@ -116,16 +155,28 @@ The recommended release path is GitHub Actions publishing from a semver tag.
    git tag v0.1.1
    git push origin v0.1.1
    ```
-4. The publish workflow validates the version, runs CI, and publishes to npm.
+4. The release workflow validates the version, runs CI, publishes npm, builds native binaries, creates a GitHub Release, and updates the Homebrew tap.
+
+### Binary And Homebrew Install
+
+GitHub Release assets are the zero-Bun-install path for supported targets.
+
+Homebrew uses those release assets through the `klinex/homebrew-tap` tap:
+
+```bash
+brew install klinex/tap/klinex
+klinex --version
+```
 
 ### Requirements
 
 - package name: `@klinex/klinex`
 - install target: npm registry
-- runtime requirement: Bun
+- runtime requirement: Bun for npm installs, none for standalone release binaries
 - repo target: `https://github.com/spencerjireh/klinex`
 - npm access to the `@klinex/klinex` package
 - `NPM_TOKEN` configured in GitHub Actions for CI publishing
+- `HOMEBREW_TAP_TOKEN` configured in GitHub Actions for updating `klinex/homebrew-tap`
 
 ## License
 
