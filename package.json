@@ -1,6 +1,6 @@
 {
   "name": "@klinex/klinex",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "OpenTUI inspector for local dev servers",
   "keywords": [
     "bun",
