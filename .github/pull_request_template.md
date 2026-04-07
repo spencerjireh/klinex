@@ -1,13 +1,16 @@
-## Summary
+## Description
 
--
+Brief description of the changes made and the motivation behind them.
+
+## Changes
+
+List the files, features, or areas affected by this PR.
 
 ## Testing
 
-- [ ] `bun run check`
-- [ ] `bun run test`
-- [ ] `bun run build`
+Describe how the changes were tested.
 
-## Notes
+## Checklist
 
--
+- [ ] Tests pass (`bun test`)
+- [ ] Typecheck passes (`bun run check`)
