@@ -439,15 +439,6 @@ export class KlinexApp {
       return;
     }
 
-    // Vim navigation
-    if (key.name === "j") {
-      this.listSelect.moveDown();
-      return;
-    }
-    if (key.name === "k") {
-      this.listSelect.moveUp();
-      return;
-    }
     if (key.shift && key.name === "g") {
       this.listSelect.setSelectedIndex(this.listSelect.options.length - 1);
       return;
