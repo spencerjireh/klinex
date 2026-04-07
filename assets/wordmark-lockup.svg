@@ -1,0 +1,74 @@
+<svg width="820" height="220" viewBox="0 0 820 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="klinexLockupBranch" x1="64" y1="156" x2="220" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EE7948"/>
+      <stop offset="1" stop-color="#EC5B2B"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(24 20)">
+    <rect width="180" height="180" rx="42" fill="#1F2128"/>
+    <rect x="8" y="8" width="164" height="164" rx="34" stroke="#FFF7F1" stroke-opacity="0.05"/>
+
+    <g transform="translate(-6 -8)">
+      <path d="M95 154C107 145 116 133 120 120C124 107 121 91 113 73L122 68C133 91 136 108 131 124C127 139 117 152 101 165L95 154Z" fill="#4A2F29"/>
+      <path d="M90 154C79 145 71 135 67 124C63 113 64 99 69 81L78 84C74 99 74 111 77 120C80 129 87 137 98 145L90 154Z" fill="#4A2F29"/>
+      <path d="M95 119L76 89M95 119L109 97M95 119L126 119M76 89L53 68M76 89L84 58M76 89L107 82M109 97L124 61M109 97L143 84M126 119L151 93M126 119L161 119M53 68L31 56M53 68L42 36M84 58L71 27M84 58L100 31M84 58L122 44M124 61L139 37M124 61L164 53M143 84L177 59M151 93L184 93" stroke="url(#klinexLockupBranch)" stroke-width="5.5" stroke-linecap="round"/>
+      <path d="M53 68L84 58L107 82L124 61L143 84L124 61L122 44L100 31L71 27L42 36L53 68" stroke="#F6B164" stroke-opacity="0.35" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <g fill="#F08A37">
+        <circle cx="95" cy="119" r="7.5"/>
+        <circle cx="76" cy="89" r="6"/>
+        <circle cx="109" cy="97" r="5.5"/>
+        <circle cx="126" cy="119" r="5.5"/>
+        <circle cx="53" cy="68" r="4.5"/>
+        <circle cx="84" cy="58" r="4.5"/>
+        <circle cx="107" cy="82" r="4.5"/>
+        <circle cx="124" cy="61" r="4.5"/>
+        <circle cx="143" cy="84" r="4.5"/>
+        <circle cx="151" cy="93" r="4"/>
+        <circle cx="161" cy="119" r="4.5"/>
+        <circle cx="31" cy="56" r="4"/>
+        <circle cx="42" cy="36" r="4"/>
+        <circle cx="71" cy="27" r="4"/>
+        <circle cx="100" cy="31" r="4"/>
+        <circle cx="122" cy="44" r="4"/>
+        <circle cx="139" cy="37" r="4"/>
+        <circle cx="164" cy="53" r="4"/>
+        <circle cx="177" cy="59" r="4"/>
+        <circle cx="184" cy="93" r="4"/>
+      </g>
+      <g fill="#FF6D38">
+        <circle cx="42" cy="36" r="13"/>
+        <circle cx="71" cy="27" r="14"/>
+        <circle cx="100" cy="31" r="14"/>
+        <circle cx="139" cy="37" r="12"/>
+        <circle cx="164" cy="53" r="12"/>
+        <circle cx="31" cy="56" r="13"/>
+        <circle cx="184" cy="93" r="10"/>
+      </g>
+      <g fill="#FF9A3C">
+        <circle cx="42" cy="36" r="5"/>
+        <circle cx="71" cy="27" r="5"/>
+        <circle cx="100" cy="31" r="5"/>
+        <circle cx="139" cy="37" r="4.5"/>
+        <circle cx="164" cy="53" r="4.5"/>
+        <circle cx="31" cy="56" r="5"/>
+        <circle cx="184" cy="93" r="4"/>
+      </g>
+      <g fill="#FFF7F1">
+        <circle cx="42" cy="36" r="1.8"/>
+        <circle cx="71" cy="27" r="1.8"/>
+        <circle cx="100" cy="31" r="1.8"/>
+        <circle cx="139" cy="37" r="1.8"/>
+        <circle cx="164" cy="53" r="1.8"/>
+        <circle cx="31" cy="56" r="1.8"/>
+        <circle cx="184" cy="93" r="1.8"/>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(250 88)">
+    <text x="0" y="0" fill="#FFF7F1" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="72" font-weight="700" letter-spacing="3">KLINEX</text>
+    <text x="0" y="44" fill="#EE7948" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="24" font-weight="600" letter-spacing="0.8">Lucent control for localhost.</text>
+  </g>
+</svg>
