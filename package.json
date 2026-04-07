@@ -1,6 +1,6 @@
 {
   "name": "@klinex/klinex",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "OpenTUI dashboard for local developer services",
   "keywords": [
     "bun",
