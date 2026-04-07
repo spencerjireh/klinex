@@ -1,13 +1,13 @@
 {
   "name": "@klinex/klinex",
   "version": "0.1.8",
-  "description": "OpenTUI inspector for local dev servers",
+  "description": "OpenTUI dashboard for local developer services",
   "keywords": [
     "bun",
     "opentui",
     "tui",
     "localhost",
-    "dev-server",
+    "developer-services",
     "process-manager"
   ],
   "homepage": "https://github.com/spencerjireh/klinex#readme",

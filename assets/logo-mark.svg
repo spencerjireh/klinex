@@ -1,0 +1,123 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="klinexBranch" x1="110" y1="356" x2="405" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EE7948"/>
+      <stop offset="1" stop-color="#EC5B2B"/>
+    </linearGradient>
+    <linearGradient id="klinexTrunk" x1="247" y1="448" x2="296" y2="286" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3A2218"/>
+      <stop offset="1" stop-color="#8D4C38"/>
+    </linearGradient>
+    <radialGradient id="klinexBloom" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 0) scale(24)">
+      <stop offset="0.18" stop-color="#FFF7F1"/>
+      <stop offset="0.2" stop-color="#FFF7F1"/>
+      <stop offset="0.21" stop-color="#E5C07B"/>
+      <stop offset="0.62" stop-color="#EE7948"/>
+      <stop offset="1" stop-color="#EC5B2B"/>
+    </radialGradient>
+  </defs>
+
+  <path d="M259 446C281 430 298 411 305 389C312 368 307 341 293 312L308 303C326 337 332 370 323 398C315 424 296 446 268 466L259 446Z" fill="url(#klinexTrunk)"/>
+  <path d="M252 446C232 431 219 414 212 394C205 375 206 351 215 322L230 327C222 353 222 374 228 390C234 406 246 420 264 434L252 446Z" fill="url(#klinexTrunk)"/>
+
+  <path d="M258 389L221 333" stroke="url(#klinexBranch)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M258 389L284 347" stroke="url(#klinexBranch)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M258 389L316 389" stroke="url(#klinexBranch)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M221 333L177 295" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M221 333L235 275" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M221 333L280 320" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M284 347L314 291" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M284 347L347 324" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M316 389L362 339" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M316 389L379 389" stroke="url(#klinexBranch)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M177 295L131 272" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M177 295L153 235" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M235 275L207 215" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M235 275L268 221" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M235 275L304 250" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M314 291L340 236" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M314 291L386 277" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M347 324L410 289" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M362 339L422 339" stroke="url(#klinexBranch)" stroke-width="6" stroke-linecap="round"/>
+
+  <path d="M177 295L235 275L280 320L314 291L347 324L314 291L304 250L268 221L207 215L153 235L177 295" stroke="#EE794866" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M221 333L280 320L316 389" stroke="#EE794866" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <g fill="#EE7948">
+    <circle cx="258" cy="389" r="11"/>
+    <circle cx="221" cy="333" r="9"/>
+    <circle cx="284" cy="347" r="8"/>
+    <circle cx="316" cy="389" r="8"/>
+    <circle cx="177" cy="295" r="7"/>
+    <circle cx="235" cy="275" r="7"/>
+    <circle cx="280" cy="320" r="7"/>
+    <circle cx="314" cy="291" r="7"/>
+    <circle cx="347" cy="324" r="7"/>
+    <circle cx="362" cy="339" r="6"/>
+    <circle cx="379" cy="389" r="7"/>
+    <circle cx="131" cy="272" r="6"/>
+    <circle cx="153" cy="235" r="6"/>
+    <circle cx="207" cy="215" r="6"/>
+    <circle cx="268" cy="221" r="6"/>
+    <circle cx="304" cy="250" r="6"/>
+    <circle cx="340" cy="236" r="6"/>
+    <circle cx="386" cy="277" r="6"/>
+    <circle cx="410" cy="289" r="6"/>
+    <circle cx="422" cy="339" r="6"/>
+  </g>
+
+  <g transform="translate(117 248)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+  <g transform="translate(147 232) scale(0.78)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+  <g transform="translate(214 206) scale(0.88)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+  <g transform="translate(272 212) scale(0.94)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+  <g transform="translate(340 228) scale(0.82)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+  <g transform="translate(399 279) scale(0.7)">
+    <circle cx="0" cy="0" r="20" fill="url(#klinexBloom)"/>
+    <ellipse cx="0" cy="-18" rx="12" ry="18" fill="#EC5B2B"/>
+    <ellipse cx="17" cy="-5" rx="12" ry="18" transform="rotate(72 17 -5)" fill="#FF8A3D"/>
+    <ellipse cx="10" cy="15" rx="12" ry="18" transform="rotate(144 10 15)" fill="#EE7948"/>
+    <ellipse cx="-10" cy="15" rx="12" ry="18" transform="rotate(-144 -10 15)" fill="#FF6A3A"/>
+    <ellipse cx="-17" cy="-5" rx="12" ry="18" transform="rotate(-72 -17 -5)" fill="#EE7948"/>
+    <circle cx="0" cy="0" r="5" fill="#FFF7F1"/>
+  </g>
+</svg>

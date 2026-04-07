@@ -1,0 +1,101 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGlow" x1="160" y1="90" x2="1010" y2="590" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1A15"/>
+      <stop offset="1" stop-color="#1E2026"/>
+    </linearGradient>
+    <radialGradient id="emberGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(330 220) rotate(43.0251) scale(478.774 429.309)">
+      <stop offset="0" stop-color="#EC5B2B" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#EC5B2B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineGlow" x1="235" y1="370" x2="488" y2="167" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EE7948"/>
+      <stop offset="1" stop-color="#EC5B2B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" rx="36" fill="url(#bgGlow)"/>
+  <rect width="1200" height="630" rx="36" fill="url(#emberGlow)"/>
+  <rect x="24" y="24" width="1152" height="582" rx="24" stroke="#FFF7F1" stroke-opacity="0.07"/>
+
+  <g opacity="0.28">
+    <path d="M67 514H1133" stroke="#FFF7F1" stroke-opacity="0.08"/>
+    <path d="M67 487H1133" stroke="#FFF7F1" stroke-opacity="0.04"/>
+    <path d="M67 541H1133" stroke="#FFF7F1" stroke-opacity="0.04"/>
+  </g>
+
+  <g transform="translate(88 98)">
+    <rect width="360" height="360" rx="84" fill="#1F2128"/>
+    <rect x="16" y="16" width="328" height="328" rx="68" stroke="#FFF7F1" stroke-opacity="0.05"/>
+
+    <g transform="translate(8 14)">
+      <path d="M170 295C189 282 203 266 209 247C216 229 211 205 199 181L212 174C228 203 233 231 225 254C219 277 203 296 179 313L170 295Z" fill="#4A2F29"/>
+      <path d="M164 294C146 282 135 268 129 251C123 235 124 214 132 189L145 193C138 216 138 234 143 247C148 260 158 272 174 284L164 294Z" fill="#4A2F29"/>
+      <path d="M169 245L140 200M169 245L191 211M169 245L215 245M140 200L106 168M140 200L151 153M140 200L186 190M191 211L214 167M191 211L240 193M215 245L252 206M215 245L266 245M106 168L71 150M106 168L88 120M151 153L130 107M151 153L177 112M151 153L205 133M214 167L235 121M214 167L271 156M240 193L289 166M252 206L299 206" stroke="url(#lineGlow)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M106 168L151 153L186 190L214 167L240 193L214 167L205 133L177 112L130 107L88 120L106 168" stroke="#F6B164" stroke-opacity="0.35" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+      <g fill="#F08A37">
+        <circle cx="169" cy="245" r="10"/>
+        <circle cx="140" cy="200" r="8"/>
+        <circle cx="191" cy="211" r="7"/>
+        <circle cx="215" cy="245" r="7"/>
+        <circle cx="106" cy="168" r="6"/>
+        <circle cx="151" cy="153" r="6"/>
+        <circle cx="186" cy="190" r="6"/>
+        <circle cx="214" cy="167" r="6"/>
+        <circle cx="240" cy="193" r="6"/>
+        <circle cx="252" cy="206" r="5"/>
+        <circle cx="266" cy="245" r="6"/>
+        <circle cx="71" cy="150" r="5"/>
+        <circle cx="88" cy="120" r="5"/>
+        <circle cx="130" cy="107" r="5"/>
+        <circle cx="177" cy="112" r="5"/>
+        <circle cx="205" cy="133" r="5"/>
+        <circle cx="235" cy="121" r="5"/>
+        <circle cx="271" cy="156" r="5"/>
+        <circle cx="289" cy="166" r="5"/>
+        <circle cx="299" cy="206" r="5"/>
+      </g>
+      <g fill="#FF6D38">
+        <circle cx="88" cy="120" r="20"/>
+        <circle cx="130" cy="107" r="21"/>
+        <circle cx="177" cy="112" r="21"/>
+        <circle cx="235" cy="121" r="18"/>
+        <circle cx="271" cy="156" r="17"/>
+        <circle cx="71" cy="150" r="19"/>
+        <circle cx="299" cy="206" r="15"/>
+      </g>
+      <g fill="#FF9A3C">
+        <circle cx="88" cy="120" r="8"/>
+        <circle cx="130" cy="107" r="8"/>
+        <circle cx="177" cy="112" r="8"/>
+        <circle cx="235" cy="121" r="7"/>
+        <circle cx="271" cy="156" r="7"/>
+        <circle cx="71" cy="150" r="8"/>
+        <circle cx="299" cy="206" r="6"/>
+      </g>
+      <g fill="#FFF7F1">
+        <circle cx="88" cy="120" r="3"/>
+        <circle cx="130" cy="107" r="3"/>
+        <circle cx="177" cy="112" r="3"/>
+        <circle cx="235" cy="121" r="3"/>
+        <circle cx="271" cy="156" r="3"/>
+        <circle cx="71" cy="150" r="3"/>
+        <circle cx="299" cy="206" r="3"/>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(520 145)">
+    <text x="0" y="0" fill="#FFF7F1" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="88" font-weight="700" letter-spacing="3">KLINEX</text>
+    <text x="0" y="70" fill="#FF9A3C" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="28" font-weight="600" letter-spacing="1.2">Lucent control for localhost.</text>
+    <text x="0" y="158" fill="#FFF7F1" fill-opacity="0.86" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="32" font-weight="500">Discover, open, and stop local services</text>
+    <text x="0" y="204" fill="#FFF7F1" fill-opacity="0.86" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="32" font-weight="500">from one terminal.</text>
+
+    <g transform="translate(0 266)">
+      <rect width="186" height="46" rx="23" fill="#EC5B2B" fill-opacity="0.13"/>
+      <text x="22" y="30" fill="#FFB067" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="20" font-weight="600">OpenTUI</text>
+      <rect x="202" width="198" height="46" rx="23" fill="#EC5B2B" fill-opacity="0.13"/>
+      <text x="224" y="30" fill="#FFB067" font-family="Inter, SF Pro Display, Segoe UI, sans-serif" font-size="20" font-weight="600">Developer Services</text>
+    </g>
+  </g>
+</svg>

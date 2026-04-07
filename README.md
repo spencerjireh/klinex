@@ -1,8 +1,14 @@
 # klinex
 
-`klinex` is a Bun-powered OpenTUI dashboard for local developer services.
+<p align="center">
+  <img src="./assets/wordmark-lockup.svg" alt="Klinex wordmark" width="520" />
+</p>
 
-It scans local TCP listeners, ranks developer-relevant services first, probes browserable services over HTTP/HTTPS and infra services over TCP, lets you open local web UIs in your browser, and gives you safe stop controls directly from the terminal.
+`klinex` is a Bun-powered OpenTUI command surface for local developer services.
+
+It brings your localhost stack into one warm, focused terminal view: discover what is listening, open browserable services, inspect the process behind a port, and stop what you no longer need without leaving the keyboard.
+
+It scans local TCP listeners, ranks developer-relevant services first, probes browserable services over HTTP/HTTPS and infra services over TCP, and gives you safe stop controls directly from the terminal.
 
 ## Features
 
@@ -125,6 +131,8 @@ Tagged releases also publish:
 
 - standalone binaries on GitHub Releases
 - a Homebrew formula to `klinex/homebrew-tap`
+
+Brand assets for repo and release surfaces live in `assets/`, including `assets/social-card.svg` for GitHub social preview and release artwork.
 
 ### Manual Publish
 
